@@ -18,9 +18,16 @@ const DarkModeToggleButton = ({ includeIcons }: Props) => {
     }, []);
 
     return (
-        <div className='flex flex-row items-center gap-1'>
+        <div className="flex flex-row items-center gap-1">
             {includeIcons && <SunIcon size={16} />}
-            <Switch classNames={{ base: "h-5 w-10 data-[state=unchecked]:bg-zinc-800", thumb: "h-4 w-4" }} checked={mounted && resolvedTheme === "dark"} onCheckedChange={(enableDark) => setTheme(enableDark ? "dark" : "light")} />
+            <Switch
+                classNames={{
+                    base: "h-5 w-10 data-[state=unchecked]:bg-violet-800 dark:data-[state=checked]:bg-violet-200",
+                    thumb: "h-4 w-4 data-[state=unchecked]:bg-violet-200 dark:data-[state=checked]:bg-violet-800",
+                }}
+                checked={mounted && resolvedTheme === "dark"}
+                onCheckedChange={(enableDark) => setTheme(enableDark ? "dark" : "light")}
+            />
             {includeIcons && <MoonIcon size={16} />}
         </div>
     );
