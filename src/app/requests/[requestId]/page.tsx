@@ -1,5 +1,6 @@
 "use client";
 
+import DisplayToEditInput from "@/components/DisplayToEditInput";
 import HeaderIconOnlyButton from "@/components/HeaderIconOnlyButton";
 import Header from "@/components/layout/Header";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -107,10 +108,15 @@ const EditRequestPage = ({ params: { requestId } }: Props) => {
                                 control={form.control}
                                 name="source"
                                 render={({ field }) => (
-                                    <FormItem>
+                                    <FormItem className="flex flex-row items-baseline gap-2">
                                         <FormLabel>Source</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Source" {...field}></Input>
+                                            <DisplayToEditInput
+                                                classNames={{ input: "w-96" }}
+                                                placeholder="Enter source of transfer"
+                                                onValueChange={field.onChange}
+                                                value={field.value}
+                                            />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -120,15 +126,43 @@ const EditRequestPage = ({ params: { requestId } }: Props) => {
                                 control={form.control}
                                 name="destination"
                                 render={({ field }) => (
-                                    <FormItem>
+                                    <FormItem className="flex flex-row items-baseline gap-2">
                                         <FormLabel>Destination</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Destination" {...field}></Input>
+                                            <DisplayToEditInput
+                                                classNames={{ input: "w-96" }}
+                                                placeholder="Enter destination of transfer"
+                                                onValueChange={field.onChange}
+                                                value={field.value}
+                                            />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
                             />
+                            <FormItem>
+                                <FormLabel>Requestor</FormLabel>
+                                <Input
+                                    className="!cursor-text"
+                                    value={uploadRequest?.requestorName}
+                                    readOnly
+                                    disabled
+                                />
+                            </FormItem>
+                            <FormItem>
+                                <FormLabel>Requestor Email</FormLabel>
+                                <Input
+                                    className="!cursor-text"
+                                    value={uploadRequest?.requestorEmail}
+                                    readOnly
+                                    disabled
+                                />
+                            </FormItem>
+                            <FormItem>
+                                <FormLabel>Status</FormLabel>
+                                <Input className="!cursor-text" value={uploadRequest?.lastStatus} readOnly disabled />
+                            </FormItem>
+
                             <FormField
                                 control={form.control}
                                 name="priority"
