@@ -19,7 +19,7 @@ const StatusList = ({ requestId }: Props) => {
         return <p className='mt-20 mx-auto w-fit'>No status updates</p>;
     } else {
         return (
-            <ul className='overflow-y-auto'>
+            <ul className=''>
                 {requestUpdates.map((r) => (
                     <StatusListRow key={r.id} statusUpdate={r} />
                 ))}

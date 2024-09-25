@@ -51,7 +51,8 @@ const EditRequestPage = ({ params: { requestId } }: Props) => {
     return (
         <div className='font-[family-name:var(--font-geist-sans)] w-full'>
             <Header />
-            <main className='px-2 sm:px-8 mt-12 h-[calc(100dvh-5.5rem)] overflow-y-hidden flex flex-col'>
+            {/* <main className='px-2 sm:px-8 mt-12 h-[calc(100dvh-5.5rem)] overflow-y-hidden flex flex-col'> */}
+            <main className='px-2 sm:px-8 mt-12 mb-6 flex flex-col'>
                 {loadingRequest ? <RequestDetailsSkeleton /> : <RequestDetails uploadRequest={uploadRequest!} />}
                 <Separator className='my-4' />
                 <NewUpdateSection requestId={requestId} />

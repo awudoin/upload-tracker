@@ -41,7 +41,9 @@ const DisplayToEditInput = (props: Props) => {
 
     const handleSaveEdit = () => {
         setIsEditing(false);
-        props.onValueChange(newValue);
+        if (newValue !== props.value) {
+            props.onValueChange(newValue);
+        }
     };
 
     const readOnlyField = (

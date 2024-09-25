@@ -35,12 +35,12 @@ const NewRequestPage = () => {
     };
 
     useHeader({
-        startContent: <HeaderIconOnlyButton className='w-7 h-7 p-1' key='back' icon={<ChevronLeftIcon />} onClick={onCancel} />,
-        middleContent: (
+        startContent: [
+            <HeaderIconOnlyButton className='w-7 h-7 p-1' key='back' icon={<ChevronLeftIcon />} onClick={onCancel} />,
             <h1 key='title' className='font-bold'>
                 New Upload Request
-            </h1>
-        ),
+            </h1>,
+        ],
     });
 
     const form = useForm<z.infer<typeof formSchema>>({

@@ -12,23 +12,20 @@ interface Props {
 }
 
 const RequestDetails = ({ uploadRequest }: Props) => {
-    const updateUploadRequest = async (field: keyof Pick<UploadRequest, "source" | "destination" | "priority">, newValue: string) => {
-        try {
-            const docRef = doc(uploadRequestCollection, uploadRequest.id);
-            await updateDoc(docRef, {
-                [field]: newValue,
-            });
-            toast.success("Upload request updated!");
-        } catch (e) {
-            toast.error("Error updating upload request.");
-        }
+    const updateUploadRequest = (field: keyof Pick<UploadRequest, "source" | "destination" | "priority">, newValue: string) => {
+        const docRef = doc(uploadRequestCollection, uploadRequest.id);
+
+        const updatePromise = updateDoc(docRef, {
+            [field]: newValue,
+        });
+        toast.promise(updatePromise, { loading: "Updating upload request", success: "Upload request updated!", error: "Error updating upload request" });
     };
 
-    const onUpdateSource = async (newSource: string) => await updateUploadRequest("source", newSource);
+    const onUpdateSource = (newSource: string) => updateUploadRequest("source", newSource);
 
-    const onUpdateDestination = async (newDestination: string) => await updateUploadRequest("destination", newDestination);
+    const onUpdateDestination = (newDestination: string) => updateUploadRequest("destination", newDestination);
 
-    const onUpdatePriority = async (newPriority: Priority) => await updateUploadRequest("priority", newPriority);
+    const onUpdatePriority = (newPriority: Priority) => updateUploadRequest("priority", newPriority);
 
     return (
         <div className='flex flex-col gap-2'>
