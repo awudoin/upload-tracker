@@ -35,7 +35,6 @@ export const firebaseAuth = useEmulators ? getAuth() : getAuth(firebaseApp);
 export const firebaseStore = useEmulators
     ? getFirestore()
     : initializeFirestore(firebaseApp, firestoreSettings);
-export const firebaseStorage = useEmulators ? getStorage() : getStorage(firebaseApp);
 
 if (useEmulators) {
     const authAddress = `http://${process.env.NEXT_PUBLIC_FIREBASE_AUTH_EMULATOR_HOST}`;
@@ -46,11 +45,6 @@ if (useEmulators) {
     const storePort = +process.env.NEXT_PUBLIC_FIRESTORE_EMULATOR_PORT!;
     console.log(`Connecting to store = ${storeAddress}:${storePort}`);
     connectFirestoreEmulator(firebaseStore, storeAddress!, storePort);
-
-    const storageAddress = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_EMULATOR_HOST!;
-    const storagePort = +process.env.NEXT_PUBLIC_FIREBASE_STORAGE_EMULATOR_PORT!;
-    console.log(`Connecting to storage = ${storageAddress}:${storagePort}`)
-    connectStorageEmulator(firebaseStorage, storageAddress, storagePort);
 
     console.log('Done connecting to emulators');
 }

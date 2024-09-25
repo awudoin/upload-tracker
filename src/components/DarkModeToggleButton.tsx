@@ -1,17 +1,28 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Switch } from "./ui/switch";
+import { MoonIcon, SunIcon } from "lucide-react";
 
-const DarkModeToggleButton = () => {
+interface Props {
+    includeIcons?: boolean;
+}
+
+const DarkModeToggleButton = ({ includeIcons }: Props) => {
+    const [mounted, setMounted] = useState(false);
     const { resolvedTheme, setTheme } = useTheme();
 
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
     return (
-        <Switch
-            checked={resolvedTheme === "dark"}
-            onCheckedChange={(enableDark) => setTheme(enableDark ? "dark" : "light")}
-        />
+        <div className='flex flex-row items-center gap-1'>
+            {includeIcons && <SunIcon size={16} />}
+            <Switch classNames={{ base: "h-5 w-10 data-[state=unchecked]:bg-zinc-800", thumb: "h-4 w-4" }} checked={mounted && resolvedTheme === "dark"} onCheckedChange={(enableDark) => setTheme(enableDark ? "dark" : "light")} />
+            {includeIcons && <MoonIcon size={16} />}
+        </div>
     );
 };
 

@@ -32,7 +32,7 @@ export const useHeader = ({ startContent, middleContent, endContent }: Props) =>
         return headerContext.unregisterContent;
     }, []);
 
-    const updateHeader = (position: "start" | "middle" | "end", nodes: React.ReactNode | React.ReactNode[]) => {};
+    // const updateHeader = (position: "start" | "middle" | "end", nodes: React.ReactNode | React.ReactNode[]) => {};
 
-    return headerContext.registerContent;
+    // return headerContext.registerContent;
 };
