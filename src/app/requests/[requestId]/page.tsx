@@ -39,12 +39,17 @@ const EditRequestPage = ({ params: { requestId } }: Props) => {
     };
 
     const [uploadRequest, loadingRequest, errorLoading] = useDocumentData(doc(uploadRequestCollection, requestId));
-    const [requestUpdates, loadingUpdates, errorLoadignUpdates] = useCollectionData(uploadRequestUpdateCollection(requestId), { initialValue: [] });
+    const [requestUpdates, loadingUpdates, errorLoadignUpdates] = useCollectionData(
+        uploadRequestUpdateCollection(requestId),
+        { initialValue: [] }
+    );
 
     useHeader({
-        startContent: <HeaderIconOnlyButton className='w-7 h-7 p-1' key='back' icon={<ChevronLeftIcon />} onClick={onCancel} />,
+        startContent: (
+            <HeaderIconOnlyButton className="w-7 h-7 p-1" key="back" icon={<ChevronLeftIcon />} onClick={onCancel} />
+        ),
         middleContent: (
-            <h1 key='title' className='font-bold'>
+            <h1 key="title" className="font-bold">
                 Upload Request
             </h1>
         ),
@@ -76,60 +81,36 @@ const EditRequestPage = ({ params: { requestId } }: Props) => {
 
     useEffect(() => {
         if (uploadRequest) {
-            console.log("resetting. before");
-            console.log(`Upload request = ${JSON.stringify(uploadRequest)}`);
-            console.log(`Default values = ${JSON.stringify(form.formState.defaultValues)}`);
-            console.log(`Dirty fields = ${JSON.stringify(form.formState.dirtyFields)}`);
-            console.log(`Form values = ${JSON.stringify(form.getValues())}`);
-            form.reset(
-                {
-                    source: uploadRequest?.source ?? "",
-                    destination: uploadRequest?.destination ?? "",
-                    priority: uploadRequest?.priority ?? "Low",
-                },
-                { keepDefaultValues: false, keepTouched: false, keepDirty: false, keepDirtyValues: true }
-            );
-            console.log("after reset");
-            console.log(`Default values = ${JSON.stringify(form.formState.defaultValues)}`);
-            console.log(`Dirty fields = ${JSON.stringify(form.formState.dirtyFields)}`);
-            console.log(`Form values = ${JSON.stringify(form.getValues())}`);
-            // form.setValue("priority", uploadRequest?.priority ?? "Low");
-            // console.log(`setting priority to ${uploadRequest.priority}`)
-            // form.setValue('priority', uploadRequest.priority);
-        } else {
-            console.log("upload request is null");
+            form.reset({
+                source: uploadRequest?.source ?? "",
+                destination: uploadRequest?.destination ?? "",
+                priority: uploadRequest?.priority ?? "Low",
+            });
         }
     }, [uploadRequest]);
 
-    console.log("rendering");
-    console.log(`Upload request = ${JSON.stringify(uploadRequest)}`);
-    console.log(`Default values = ${JSON.stringify(form.formState.defaultValues)}`);
-    console.log(`Dirty fields = ${JSON.stringify(form.formState.dirtyFields)}`);
-    console.log(`Touched fields = ${JSON.stringify(form.formState.touchedFields)}`);
-    console.log(`Form values = ${JSON.stringify(form.getValues())}`);
-
     if (loadingRequest) {
         return (
-            <div className='absolute top-1/2 left-1/2 flex flex-row -translate-x-1/2 -translate-y-1/2'>
-                <LoaderCircleIcon className='animate-spin' />
+            <div className="absolute top-1/2 left-1/2 flex flex-row -translate-x-1/2 -translate-y-1/2">
+                <LoaderCircleIcon className="animate-spin" />
                 <p>Loading. Please wait...</p>
             </div>
         );
     } else {
         return (
-            <div className='font-[family-name:var(--font-geist-sans)] w-full'>
+            <div className="font-[family-name:var(--font-geist-sans)] w-full">
                 <Header />
-                <main className='px-2 sm:px-8 mt-12'>
+                <main className="px-2 sm:px-8 mt-12">
                     <Form {...form}>
-                        <form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col gap-4'>
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
                             <FormField
                                 control={form.control}
-                                name='source'
+                                name="source"
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Source</FormLabel>
                                         <FormControl>
-                                            <Input placeholder='Source' {...field}></Input>
+                                            <Input placeholder="Source" {...field}></Input>
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -137,12 +118,12 @@ const EditRequestPage = ({ params: { requestId } }: Props) => {
                             />
                             <FormField
                                 control={form.control}
-                                name='destination'
+                                name="destination"
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Destination</FormLabel>
                                         <FormControl>
-                                            <Input placeholder='Destination' {...field}></Input>
+                                            <Input placeholder="Destination" {...field}></Input>
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -150,37 +131,34 @@ const EditRequestPage = ({ params: { requestId } }: Props) => {
                             />
                             <FormField
                                 control={form.control}
-                                name='priority'
-                                render={({ field }) => {
-                                    console.log("Rendering field");
-                                    console.log(JSON.stringify(field));
-                                    return (
-                                        <FormItem>
-                                            <FormLabel>Priority</FormLabel>
-                                            <Select
-                                                onValueChange={(newVal) => {
-                                                    console.log(`setting new val: ${newVal.length > 0 ? newVal : "Low (forced)"}`);
-                                                    field.onChange(newVal.length > 0 ? newVal : "Low");
-                                                }}
-                                                value={field.value}
-                                            >
-                                                <FormControl>
-                                                    <SelectTrigger className='w-full border border-zinc-200 dark:border-zinc-800 h-10 rounded-md'>
-                                                        <SelectValue placeholder='Select a priority' />
-                                                    </SelectTrigger>
-                                                </FormControl>
-                                                <SelectContent className=''>
-                                                    {PriorityLevels.map((p) => (
-                                                        <SelectItem key={p} value={p}>
-                                                            {p}
-                                                        </SelectItem>
-                                                    ))}
-                                                </SelectContent>
-                                            </Select>
-                                            <FormMessage />
-                                        </FormItem>
-                                    );
-                                }}
+                                name="priority"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Priority</FormLabel>
+                                        <Select
+                                            onValueChange={(newVal) => {
+                                                field.onChange(
+                                                    newVal.length > 0 ? newVal : uploadRequest?.priority ?? "Low"
+                                                );
+                                            }}
+                                            value={field.value}
+                                        >
+                                            <FormControl>
+                                                <SelectTrigger className="w-full border border-zinc-200 dark:border-zinc-800 h-10 rounded-md">
+                                                    <SelectValue placeholder="Select a priority" />
+                                                </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent className="">
+                                                {PriorityLevels.map((p) => (
+                                                    <SelectItem key={p} value={p}>
+                                                        {p}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
                             />
                         </form>
                     </Form>
