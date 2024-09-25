@@ -76,7 +76,7 @@ const NewRequestPage = () => {
     return (
         <div className='font-[family-name:var(--font-geist-sans)] w-full'>
             <Header />
-            <main className='px-2 sm:px-8 mt-12'>
+            <main className='px-2 sm:px-8 mt-12 mb-4'>
                 <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className='flex flex-col gap-8'>
                         <FormField

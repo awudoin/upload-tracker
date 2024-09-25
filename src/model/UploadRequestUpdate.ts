@@ -25,6 +25,7 @@ const dateFieldValueToTimestamp = (lastUpdate: number | FieldValue): Timestamp |
 
 const UploadRequestUpdateConverter: FirestoreDataConverter<UploadRequestUpdate, UploadRequestUpdateFirestore> = {
     toFirestore: (appObject: WithFieldValue<UploadRequestUpdate>): WithFieldValue<UploadRequestUpdateFirestore> => {
+        console.log("converting upload request update to firestore");
         const { id, statusDate, ...withoutId } = appObject;
         return { ...withoutId, statusDate: dateFieldValueToTimestamp(appObject.statusDate) };
     },
@@ -49,7 +50,7 @@ export const createUploadRequestUpdate = async (update: NewUploadRequestUpdate) 
         const uploadDocRef = doc(uploadRequestCollection, update.requestId);
         trx.update(uploadDocRef, {
             lastStatus: update.status,
-            lastStatusDate: now,
+            lastStatusDate: Timestamp.fromMillis(now),
             lastComments: update.comments,
         });
     });

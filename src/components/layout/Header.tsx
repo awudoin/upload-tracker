@@ -17,7 +17,7 @@ const Header = () => {
                 <div className='flex flex-row gap-1 justify-end'>{endContent.map((node) => node)}</div>
             </div>
             <div className='hidden sm:flex sm:flex-row justify-between items-center'>
-                <h1 className='font-bold'>WWID Request Tracker</h1>
+                <h1 className='font-bold'>Upload Request Tracker</h1>
                 <DarkModeToggleButton includeIcons/>
             </div>
         </header>

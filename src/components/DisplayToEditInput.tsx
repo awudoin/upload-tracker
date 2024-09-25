@@ -47,58 +47,25 @@ const DisplayToEditInput = (props: Props) => {
     const readOnlyField = (
         <>
             <span className={cn(props.classNames?.readonlyValue)}>{newValue}</span>
-            <Button
-                className={cn("h-6 w-6 ml-4 border-blue-600 text-blue-600", props.classNames?.editButton)}
-                size="icon"
-                variant="outline"
-                onClick={() => setIsEditing(true)}
-            >
-                <PencilIcon size={ICON_SIZE} fill='blue'/>
+            <Button className={cn("h-6 w-6 ml-4 border-blue-600 text-blue-600", props.classNames?.editButton)} size='icon' variant='outline' onClick={() => setIsEditing(true)}>
+                <PencilIcon size={ICON_SIZE} fill='blue' />
             </Button>
         </>
     );
 
     const editField = (
         <>
-            <Input
-                className={cn(
-                    "h-7 py-1 pr-16 focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:border-zinc-800 dark:focus-visible:border-zinc-200",
-                    props.classNames?.input
-                )}
-                placeholder={props.placeholder}
-                value={newValue}
-                onChange={handleValueChange}
-            ></Input>
-            <Button
-                className={cn(
-                    "h-[calc(1.75rem-2px)] w-[calc(1.75rem-2px)] rounded-r-none rounded-l-none -translate-x-11",
-                    props.classNames?.cancelButton
-                )}
-                size="icon"
-                variant="outline"
-                onClick={handleCancelEdit}
-            >
-                <XIcon size={ICON_SIZE} color="red" strokeWidth={4} />
+            <Input className={cn("h-7 py-1 pr-16 ", props.classNames?.input)} placeholder={props.placeholder} value={newValue} onChange={handleValueChange}></Input>
+            <Button className={cn("absolute right-7 h-7 w-7 rounded-r-none rounded-l-none", props.classNames?.cancelButton)} size='icon' variant='outline' onClick={handleCancelEdit}>
+                <XIcon size={ICON_SIZE} color='red' strokeWidth={4} />
             </Button>
-            <Button
-                className={cn(
-                    "h-[calc(1.75rem-2px)] w-[calc(1.75rem-2px)] rounded-l-none -translate-x-11",
-                    props.classNames?.acceptButton
-                )}
-                size="icon"
-                variant="outline"
-                onClick={handleSaveEdit}
-            >
-                <CheckIcon size={ICON_SIZE} color="green" strokeWidth={4} />
+            <Button className={cn("absolute right-0 h-7 w-7 rounded-l-none", props.classNames?.acceptButton)} size='icon' variant='outline' onClick={handleSaveEdit}>
+                <CheckIcon size={ICON_SIZE} color='green' strokeWidth={4} />
             </Button>
         </>
     );
 
-    return (
-        <div className={cn("flex flex-row items-center relative", props.classNames?.base)}>
-            {isEditing ? editField : readOnlyField}
-        </div>
-    );
+    return <div className={cn("flex flex-row items-center relative", props.classNames?.base)}>{isEditing ? editField : readOnlyField}</div>;
 };
 
 export default DisplayToEditInput;
