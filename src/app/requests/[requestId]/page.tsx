@@ -16,6 +16,7 @@ import RequestDetails from "./RequestDetails";
 import RequestDetailsSkeleton from "./RequestDetailsSkeleton";
 import StatusList from "./StatusList";
 import NewUpdateSection from "./NewUpdateSection";
+import RequestNavigator from "./RequestNavigator";
 
 interface Props {
     params: {
@@ -31,9 +32,11 @@ const EditRequestPage = ({ params: { requestId } }: Props) => {
     };
 
     useHeader({
-        startContent: <HeaderIconOnlyButton className='w-7 h-7 p-1' key='back' icon={<ChevronLeftIcon />} onClick={onCancel} />,
+        startContent: (
+            <HeaderIconOnlyButton className="w-7 h-7 p-1" key="back" icon={<ChevronLeftIcon />} onClick={onCancel} />
+        ),
         middleContent: (
-            <h1 key='title' className='font-bold'>
+            <h1 key="title" className="font-bold">
                 Upload Request
             </h1>
         ),
@@ -49,15 +52,18 @@ const EditRequestPage = ({ params: { requestId } }: Props) => {
     }, [errorLoading]);
 
     return (
-        <div className='font-[family-name:var(--font-geist-sans)] w-full'>
+        <div className="font-[family-name:var(--font-geist-sans)] w-full">
             <Header />
             {/* <main className='px-2 sm:px-8 mt-12 h-[calc(100dvh-5.5rem)] overflow-y-hidden flex flex-col'> */}
-            <main className='px-2 sm:px-8 mt-12 mb-6 flex flex-col'>
-                {loadingRequest ? <RequestDetailsSkeleton /> : <RequestDetails uploadRequest={uploadRequest!} />}
-                <Separator className='my-4' />
-                <NewUpdateSection requestId={requestId} />
-                <Separator className='my-4' />
-                <StatusList requestId={requestId} />
+            <main className="mt-10 flex flex-row min-h-[calc(100vh-2.5rem)]">
+                <RequestNavigator selectedRequest={requestId} />
+                <div className="flex flex-col px-2 sm:px-8 my-2 grow">
+                    {loadingRequest ? <RequestDetailsSkeleton /> : <RequestDetails uploadRequest={uploadRequest!} />}
+                    <Separator className="my-4" />
+                    <NewUpdateSection requestId={requestId} />
+                    <Separator className="my-4" />
+                    <StatusList requestId={requestId} />
+                </div>
             </main>
         </div>
     );
